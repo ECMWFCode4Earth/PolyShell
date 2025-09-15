@@ -1,0 +1,3 @@
+---
+title: Ramer-Douglas-Peucher
+---

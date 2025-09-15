@@ -4,21 +4,18 @@ theme:
   name: material
 
   features:
-    - navigation.path
-    - navigation.footer
-    - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.instant.progress
-    - navigation.sections
-    - navigation.indexes
-    - navigation.tracking
     - content.code.annotate
     - content.code.copy
-#    - content.code.select
-    - toc.follow
-    - navigation.footer
-    - navigation.top
     - content.tabs.link
+    - navigation.expand
+    - navigation.footer
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tracking
+    - toc.follow
 
   palette:
     # Palette toggle for automatic mode
@@ -42,8 +39,13 @@ theme:
         name: Switch to system preference
 
 markdown_extensions:
+  - attr_list
+  - footnotes
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -61,13 +63,26 @@ markdown_extensions:
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
           case: lower
-  - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Introduction: index.md
+  - Getting started:
+      - Installation: getting-started/installation.md
+      - Features: getting-started/features.md
+      - User guide: getting-started/user-guide.md
+      - Getting help: getting-started/getting-help.md
+  - Reference:
+      - Algorithms:
+          - Visvalingam-Whyatt: reference/algorithms/visvalingam-whyatt.md
+      - Benchmarks: reference/benchmarks.md
 
 plugins:
   - search
+  - termynal:
+      prompt_literal_start:
+        - "$"
+        - ">"
+
 extra_javascript:
   - javascripts/katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
