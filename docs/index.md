@@ -4,6 +4,9 @@ A high-performance coverage-preserving polygon reduction library for Python, wri
 
 ![Benchmark](assets/Benchmark-Light.svg#only-light)
 ![Benchmark](assets/Benchmark-Dark.svg#only-dark)
+/// caption
+A 90% reduction of a 50,000 point polygon.
+///
 
 ---
 
@@ -30,7 +33,9 @@ $ pip install polyshell
 Installed
 ```
 
-Alternatively, PolyShell can also be built from source using [maturin](https://www.maturin.rs/). See the guide [here].
+!!! tip "Build from source"
+
+    PolyShell can also be built from source using [maturin](https://www.maturin.rs/). See the guide [here](./getting-started/installation.md).
 
 ---
 
@@ -42,38 +47,59 @@ Alternatively, PolyShell can also be built from source using [maturin](https://w
     from polyshell import reduce_polygon
 
     original = [
-        (),
-        (),
-        (),
-        (),
-        (),
-        (),
+        (0.0, 0.0),
+        (0.0, 1.0),
+        (0.5, 0.5),
+        (1.0, 1.0),
+        (1.0, 0.0),
+        (0.0, 0.0),
     ]
 
     reduced = reduce_polygon(original, "auto", method="vw")
     ```
 
-For a full guide see ...
+All of PolyShell's reduction algorithms are accessible through a single function.
+
+For all the available options, see [the guide](./getting-started/user-guide.md).
+
 
 ---
 
-## PolyShell's Contract
+## PolyShell's Axioms 
 
 PolyShell promises to provide reliable high-performance polygon reduction algorithms which behave in a predictable way.
-PolyShell's contract consists of both the assumptions PolyShell make about a user's input and, given these are upheld,
-the assumptions the user can make about the output they receive.
+PolyShell's axioms consist of both the assumptions we make about a user's input and, given these are upheld, the
+assumptions the user can make about the output they receive.
 
-### Our Assumptions
+???+ warning "Input validation"
 
-PolyShell provides little-to-no input validation on the input polygon. While PolyShell always guarantees memory-safety,
-if the following assumptions are broken you may receive an error or invalid output. If you are uncertain whether your
-data upholds these constraints we encourage you to use [Shapely](https://shapely.readthedocs.io/en/stable/) to perform
-your own validation first.
+    PolyShell provides little-to-no input validation. While PolyShell always guarantees memory-safety, if the following
+    assumptions are broken you may receive an error or an invalid reduction. If you are uncertain whether your data upholds
+    these requirements, we encourage you to use [Shapely](https://shapely.readthedocs.io/en/stable/) to perform your own
+    validation first.
 
-1. The input polygon must be valid.
 
-### Our Promises
+### Polygon Validity
+
+All input to PolyShell is expected to be valid. A polygon is said to be valid if:
+
+1. It is [simple].
+2. The vertices are stored as a sequence in clockwise order.
+3. The first and last coordinate in the sequence are equal.
+
+[simple]: https://en.wikipedia.org/wiki/Simple_polygon, "A polygon with no holes or self-intersections."
+
+### Our Promise
 
 Provided the assumptions made above are upheld, PolyShell makes the following promises:
 
-1. The output polygon will always be valid.
+1. The reduced polygon will always be [valid].
+2. The reduced polygon will always contain the input polygon in its interior.
+3. Vertices are never moved nor added. 
+4. Reduction preserves the ordering of the vertices, but is not necessarily stable.
+
+???+ note "Vertex order stability"
+
+    While the sequence of vertices within the polygon is preserved, the location of the first vertex may shift depending on
+    the algorithm used.
+
