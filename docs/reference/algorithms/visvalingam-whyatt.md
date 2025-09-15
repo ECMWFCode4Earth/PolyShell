@@ -1,6 +1,4 @@
----
-title: Visvalingam-Whyatt
----
+# Visvalingam-Whyatt
 
 The Visvalingam-Whyatt reduction method provided by PolyShell consists of a few modifications to the original line
 reduction algorithm by Visvalingam and Whyatt[^1] in order to guarantee PolyShell's contract.

@@ -1,3 +1,2 @@
----
-title: Ramer-Douglas-Peucher
----
+# Ramer-Douglas-Peucker
+
