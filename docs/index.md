@@ -60,7 +60,7 @@ Installed
 
 All of PolyShell's reduction algorithms are accessible through a single function.
 
-For all the available options, see [the guide](./getting-started/user-guide.md).
+For all the available options, see the [guide](./getting-started/user-guide.md).
 
 
 ---
@@ -73,7 +73,7 @@ assumptions the user can make about the output they receive.
 
 ???+ warning "Input validation"
 
-    PolyShell provides little-to-no input validation. While PolyShell always guarantees memory-safety, if the following
+    PolyShell provides little-to-no input validation. While memory-safety is always guaranteed, if the following
     assumptions are broken you may receive an error or an invalid reduction. If you are uncertain whether your data upholds
     these requirements, we encourage you to use [Shapely](https://shapely.readthedocs.io/en/stable/) to perform your own
     validation first.
@@ -81,19 +81,23 @@ assumptions the user can make about the output they receive.
 
 ### Polygon Validity
 
-All input to PolyShell is expected to be valid. A polygon is said to be valid if:
+All input to PolyShell is expected to be valid.
 
-1. It is [simple].
-2. The vertices are stored as a sequence in clockwise order.
-3. The first and last coordinate in the sequence are equal.
+!!! abstract "Definition: Polygon validity"
 
-[simple]: https://en.wikipedia.org/wiki/Simple_polygon, "A polygon with no holes or self-intersections."
+    A polygon is said to be valid if:
+
+    1. It is a [simple polygon].
+    2. The vertices are stored as a sequence in clockwise order.
+    3. The first and last coordinate in the sequence are equal.
+
+[simple polygon]: https://en.wikipedia.org/wiki/Simple_polygon, "A polygon with no holes or self-intersections."
 
 ### Our Promise
 
 Provided the assumptions made above are upheld, PolyShell makes the following promises:
 
-1. The reduced polygon will always be [valid].
+1. The reduced polygon will always be [valid](#polygon-validity).
 2. The reduced polygon will always contain the input polygon in its interior.
 3. Vertices are never moved nor added. 
 4. Reduction preserves the ordering of the vertices, but is not necessarily stable.
